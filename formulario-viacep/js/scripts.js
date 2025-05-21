@@ -21,20 +21,24 @@ cepInput.addEventListener("blur",()=>{
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then(response => response.json())
         .then(data => {
-
-            document.querySelector("#logradouro").value = data.logradouro
-
-            document.querySelector("#complemento").value = data.complemento
-
-            document.querySelector("#bairro").value = data.bairro
-
-            document.querySelector("#cidade").value = data.localidade
-
-            document.querySelector("#estado").value = data.estado
-           
+            if(!data.erro){
+                document.querySelector("#logradouro").value = data.logradouro
+    
+                document.querySelector("#complemento").value = data.complemento
+    
+                document.querySelector("#bairro").value = data.bairro
+    
+                document.querySelector("#cidade").value = data.localidade
+    
+                document.querySelector("#estado").value = data.estado
+            }
+        })
+        .catch(error =>{
+            alert("Erro ao buscar o CEP")
+            console.error(error)
         })
     } else{
-        console.log("Cep não encontrado")
+        console.log("Cep inválido")
     }
 
 })
